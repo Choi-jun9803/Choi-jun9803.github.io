@@ -60,5 +60,11 @@ categories: STUDY
 ```LightGBM```은 쉽게 말해서 ```GradientBoosting``` 에 ```tree``` 기반으로 적용하는 것이다. 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ![LightGBM_leaf_wise](C:\project\Choi-jun9803.github.io\img\LightGBM_leaf_wise.png)
 =======
+=======
+
+
+
+>>>>>>> a0108ed9accd94a2287c77c5142fc5883ec563ca
