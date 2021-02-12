@@ -10,7 +10,7 @@ categories: STUDY
 
 먼저 대회에 대한 설명을 해보자면 "비식별화 된 시스템 기록(로그 및 수치 데이터)을 분석하여 시스템 품질 변화로 사용자에게 불편을 야기하는 요인을 진단"하는 대회로, 퀄리티 로그 데이터와 에러 로그 데이터를 이용하여 고객들이 불편을 제기할지 안 할지 예측을 하는 예측 모델을 만드는 것이다.
 
-이 대회에서 나는 *LightGBM, Randomforest, LogisticRegression*을 이용하여 모델 3개를 만들고 각각의 예측 값들을 stacking하여 다시 LightGBM 모델에 학습시켰고 이때 하이퍼 파라미터를 조정하기 위해 *Bayesian optimaiztion*을 이용하여 최적의 하이퍼 파라미터 값들을 찾았다. (이 글에서는 LightGBM을 중심으로 설명하기 때문에 이론에 대한 설명은 LightGBM만 할 것이다. 추후 포스팅에 bayesian optimaization에 대해 업로드 할 예정)
+이 대회에서 나는 **LightGBM, Randomforest, LogisticRegression**을 이용하여 모델 3개를 만들고 각각의 예측 값들을 stacking하여 다시 LightGBM 모델에 학습시켰고 이때 하이퍼 파라미터를 조정하기 위해 **Bayesian optimaiztion**을 이용하여 최적의 하이퍼 파라미터 값들을 찾았다. (이 글에서는 LightGBM을 중심으로 설명하기 때문에 이론에 대한 설명은 LightGBM만 할 것이다. 추후 포스팅에 bayesian optimaization에 대해 업로드 할 예정)
 
 
 
