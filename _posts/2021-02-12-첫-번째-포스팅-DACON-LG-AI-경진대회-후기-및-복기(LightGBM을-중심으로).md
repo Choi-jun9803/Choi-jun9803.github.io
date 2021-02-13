@@ -59,11 +59,9 @@ categories: STUDY
 
 이런 ```GradientBoosting```에는 여러 가지 기법들이 있는데 그 중 ```LightGBM```은 ```GradientBoosting``` 에 ```tree``` 기반으로 적용하는 기법이다. 
 
-<<<<<<< HEAD
 ![LightGBM_leaf_wise](https://github.com/Choi-jun9803/Choi-jun9803.github.io/issues/1#issue-807071928)
 =======
 
 ```GradienBoosting```을 ```tree```기반으로 하는 다른 알고리즘과의 차이점은 leaf-wise기반이라는 점이다. 
 =======
 ![LightGBM_leaf_wise](https://user-images.githubusercontent.com/64791442/107749601-35173980-6d5e-11eb-8201-d28c87d604f9.png)
->>>>>>> a39db55e62876a20060261433c775646be2bee95
