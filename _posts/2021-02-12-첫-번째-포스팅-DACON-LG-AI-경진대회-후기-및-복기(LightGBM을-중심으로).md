@@ -53,12 +53,13 @@ categories: STUDY
 
 ***
 
-그 중에서도 우리가 사용한 모델은 ```LightGBM```인데 ```GradientBoosting```의 한 종류로 ```tree```기반 학습 알고리즘이다. ```GradientBoosting```은 쉽게 말해서 이전 분류기의 ```residual``` 에 ```fitting```하는 개념으로, 계속해서 ```residual```을 줄여가는 방향으로 학습하는 것이다.
+그 중에서도 우리가 사용한 모델은 ```LightGBM```인데 ```GradientBoosting```의 한 종류로 ```tree```기반 학습 알고리즘이다. ```GradientBoosting```은 쉽게 말해서 이전 분류기의 ```residual``` 에 ```fitting```하는 개념으로, 목적함수```loss function```을 미분하여 함수값을 최소로 하는 가중치를 ```gradient```로 찾아 학습시킨 분류기에서 발생한```residual```을 다음 분류기에서 다시 ```fitting``` 하면서 반복하는 것이다. 분류기 1을 통해 예측하고 남은 잔차를 분류기 2을 통해 예측하고, 또 거기서 나온 잔차를 다음 분류기가 예측하고,,,,
 
 
 
-```LightGBM```은 쉽게 말해서 ```GradientBoosting``` 에 ```tree``` 기반으로 적용하는 것이다. 
+이런 ```GradientBoosting```에는 여러 가지 기법들이 있는데 그 중 ```LightGBM```은 ```GradientBoosting``` 에 ```tree``` 기반으로 적용하는 기법이다. 
 
 ![LightGBM_leaf_wise](https://github.com/Choi-jun9803/Choi-jun9803.github.io/issues/1#issue-807071928)
 =======
 
+```GradienBoosting```을 ```tree```기반으로 하는 다른 알고리즘과의 차이점은 leaf-wise기반이라는 점이다. 
