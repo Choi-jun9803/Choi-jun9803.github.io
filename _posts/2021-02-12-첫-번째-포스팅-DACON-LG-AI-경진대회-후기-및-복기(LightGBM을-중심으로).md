@@ -2,7 +2,7 @@
 layout: post
 title:  "첫 번째 포스팅-DACON LG AI 경진대회 후기 및 복기(LightGBM을 중심으로)"
 date:   2021-02-12 19:31:29 +0900
-categories: project
+categories: STUDY
 ---
 
 2021년 2월 3일에 끝난 DACON LG AI 시스템 품질 변화로 인한 사용자 불편 예지 AI 경진대회[DACON LG AI](https://dacon.io/competitions/official/235687/overview/ )에 참가했었습니다.
