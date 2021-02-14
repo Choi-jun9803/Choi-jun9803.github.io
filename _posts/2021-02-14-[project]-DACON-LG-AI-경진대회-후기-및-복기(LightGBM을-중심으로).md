@@ -2,7 +2,7 @@
 layout: post
 title:  "[project]DACON LG AI 경진대회 후기 및 복기(LightGBM을 중심으로)"
 date:   2021-02-14 16:27:29 +0900
-categories: STUDY
+categories: project
 ---
 
 2021년 2월 3일에 끝난 DACON LG AI 시스템 품질 변화로 인한 사용자 불편 예지 AI 경진대회[DACON LG AI](https://dacon.io/competitions/official/235687/overview/ )에 참가했었습니다.
@@ -80,8 +80,48 @@ categories: STUDY
 
 이런 ```GradientBoosting```에는 여러 가지 기법들이 있는데 그 중 ```LightGBM```은 ```GradientBoosting``` 에 ```tree``` 기반으로 적용하는 기법이다. 
 
-```GradienBoosting```을 ```tree```기반으로 하는 다른 알고리즘과의 차이점은 leaf-wise기반이라는 점이다.
-
-
-
 ![LightGBM_leaf_wise](https://user-images.githubusercontent.com/64791442/107749601-35173980-6d5e-11eb-8201-d28c87d604f9.png)
+
+```GradienBoosting```을 ```tree```기반으로 하는 다른 알고리즘과의 차이점은 **leaf-wise**기반이라는 점이다. leaf-wise기반은 최대 손실 값(```loss```)을 가지는 리프 노드를 계속해서 분할하여 ```loss```를 줄여 가는 방식이다. 다른 ```tree```기반 ```Boosting``` 알고리즘은 ```Overfitting```을 방지하기 위해서 ```tree```를 대칭으로 만들면서 분류하는 **level-wise**기반이다. 
+
+![other_Boosint_level_wise](https://user-images.githubusercontent.com/64791442/107749747-67c13200-6d5e-11eb-9f15-e5053006d3a8.png)
+
+**leaf-wise**는 계산 속도가 빠르고 효율적이지만 ```overfitting```에 취약하다. 그렇기 때문에 10,000개 이상의 데이터 셋에 사용되는 것이 적절하다. 반면, **level-wise**는 비교적 ```overfitting```에 강하지만 계산 속도가 느리고 비효율적이다. 
+
+
+
+## 3. 피드백
+
+피드백을 하기 전에 당시 대회 데이터에 대한 설명이 필요할 것 같다.
+
+데이터는 ```train_err```,```train_quality```,```train_problem```, ```test_err```, ```test_quality```로 나뉘어져 있었다. 데이터 이름만 봐도 알 수 있듯이, problem데이터가 우리가 예측하고 싶은 고객 불만 데이터이고 그 외의 데이터가 예측변수로 에러 로그, 퀄리티 로그 데이터이다.
+
+앞서 말했듯이 모든 데이터는 양적 비교가 불가능한 코드화된 데이터이고 categorize과정이 필요한 데이터였다. 그래서 두 예측 변수 데이터를 하나의 ```input_data```로 변환하는 작업이 필요했고, ```string```데이터 타입이 없는 변수들만 골라서 ```categorize```시켜서 ```input_data```를 만들었다.
+
+```pyhon
+input_data = np.zeros((train_user_number,431))
+
+id_error = train_err[['user_id','errtype']].values
+
+for person_idx, err in tqdm(id_error):
+    # person_idx - train_user_id_min 위치에 person_idx, errtype에 해당하는 error값을 +1
+    input_data[person_idx - train_user_id_min, err-1 ] += 1
+
+#input data에 변수 추가(방식은 위와 같음)    
+id_model = train_err[['user_id','model_nm']].values
+
+for person_idx, model in tqdm(id_model):
+    # person_idx - train_user_id_min 위치에 person_idx, model_nm+42에 해당하는 error값을 +1 (model은 0부터 존재하므로)
+    input_data[person_idx - train_user_id_min, model+42 ] += 1
+    
+id_quality_7 = train_quality[['user_id','quality_7']].values
+
+for person_idx, quality in tqdm(id_quality_7):
+    # person_idx - train_user_id_min 위치에 person_idx, quality에 해당하는 값을 +1 
+    input_data[person_idx - train_user_id_min, quality+52 ] += 1
+    
+input_data.shape
+```
+
+이런 식으로 인덱싱을 이용하여 ```user_id```별로 각 변수에 +1하는 방식으로 ```input_data```를 만들었다.
+
