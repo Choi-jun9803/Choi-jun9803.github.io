@@ -1,4 +1,4 @@
-```markdown
+
 ---
 
 layout: category
@@ -6,4 +6,3 @@ layout: category
 title: STUDY
 
 ---
-```
