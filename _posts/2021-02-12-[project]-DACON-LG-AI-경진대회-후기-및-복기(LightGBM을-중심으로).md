@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "첫 번째 포스팅-DACON LG AI 경진대회 후기 및 복기(LightGBM을 중심으로)"
-date:   2021-02-12 19:31:29 +0900
+date:   2021-02-14 16:27:29 +0900
 categories: STUDY
 ---
 
@@ -50,7 +50,7 @@ categories: STUDY
 
 ## 2. 모델링
 
-내가 사용한 모델링은 ```LightGBM```이었다. ```LightGBM```이 빠르고 정확도가 높은 알고리즘이기에 후진 노트북으로 참여한 학생 입장에서는 최적의 알고리즘이었다. 물론 ```RandomForest```,```LogisticRegression```도 ```stacking```을 사용할 때 썼지만 ```stacking```해서 얻은 데이터를 최종적으로 fitting한 모델은 ```LightGBM```이었으므로 본 포스팅에서는 ```LightGBM```을 중심으로 적으려 한다.  
+내가 사용한 모델링은 ```LightGBM```이었다. ```LightGBM```이 빠르고 정확도가 높은 알고리즘이기에 후진 스펙의 노트북으로 참여한 내 입장에서는 최적의 알고리즘이었다. 물론 ```RandomForest```,```LogisticRegression```도 ```stacking```을 사용할 때 썼지만 ```stacking```해서 얻은 데이터를 최종적으로 fitting한 모델은 ```LightGBM```이었으므로 본 포스팅에서는 ```LightGBM```을 중심으로 적으려 한다.  
 
 ```LightGBM```에 대해서 설명하기 전에 먼저 ```boosting``` 알고리즘에 대해서 설명을 해야 한다. 
 
