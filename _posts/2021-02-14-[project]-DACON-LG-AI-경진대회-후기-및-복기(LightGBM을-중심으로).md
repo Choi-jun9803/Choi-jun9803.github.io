@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "첫 번째 포스팅-DACON LG AI 경진대회 후기 및 복기(LightGBM을 중심으로)"
+title:  "[project]DACON LG AI 경진대회 후기 및 복기(LightGBM을 중심으로)"
 date:   2021-02-14 16:27:29 +0900
 categories: STUDY
 ---
