@@ -88,11 +88,88 @@ categories: project
 
 **leaf-wise**는 계산 속도가 빠르고 효율적이지만 ```overfitting```에 취약하다. 그렇기 때문에 10,000개 이상의 데이터 셋에 사용되는 것이 적절하다. 반면, **level-wise**는 비교적 ```overfitting```에 강하지만 계산 속도가 느리고 비효율적이다. 
 
+```python
+# Train
+#-------------------------------------------------------------------------------------
+# validation auc score를 확인하기 위해 정의
+def f_pr_auc(probas_pred, y_true):
+    labels=y_true.get_label()
+    p, r, _ = precision_recall_curve(labels, probas_pred)
+    score=auc(r,p) 
+    return "pr_auc", score, True
+#-------------------------------------------------------------------------------------
+models     = []
+recalls    = []
+precisions = []
+auc_scores   = []
+threshold = 0.5
+# 파라미터 설정
+parameters =   {
+                'boosting_type' : 'dart',
+                'objective'     : 'binary',
+                'metric'        : 'auc',
+                'seed': 1015,
+                'learning_rate' : params['learning_rate'],
+                'max_depth': int(params['max_depth']),
+                'num_leaves': int(params['num_leaves']),
+                'bagging_fraction': params['bagging_fraction'],
+                'feature_fraction': params['feature_fraction'],
+                'reg_alpha' : params['reg_alpha'], 
+                'reg_lambda' : params['reg_lambda']
+                }
+#-------------------------------------------------------------------------------------
+# 5 Kfold cross validation
+k_fold = KFold(n_splits=5, shuffle=True, random_state=42)
+for train_idx, val_idx in k_fold.split(train_x):
+
+    # split train, validation set
+    X = train_x[train_idx]
+    y = train_y[train_idx]
+    valid_x = train_x[val_idx]
+    valid_y = train_y[val_idx]
+
+    d_train= lgb.Dataset(X, y)
+    d_val  = lgb.Dataset(valid_x, valid_y)
+
+    #run traning
+    model = lgb.train(
+                        parameters,
+                        train_set       = d_train,
+                        num_boost_round = int(params['num_boost_round']),
+                        valid_sets      = d_val,
+                        feval           = f_pr_auc,
+                        verbose_eval    = 20, 
+                        early_stopping_rounds = 3
+                       )
+
+    # cal valid prediction
+    valid_prob = model.predict(valid_x)
+    valid_pred = np.where(valid_prob > threshold, 1, 0)
+
+    # cal scores
+    recall    = recall_score(    valid_y, valid_pred)
+    precision = precision_score( valid_y, valid_pred)
+    auc_score = roc_auc_score(   valid_y, valid_prob)
+
+    # append scores
+    models.append(model)
+    recalls.append(recall)
+    precisions.append(precision)
+    auc_scores.append(auc_score)
+
+    print('==========================================================')
+```
+
+- 대회에서 점수 산정을 auc-score를 기준으로 했다.
+- ```hyper parameter tunning``` 은 ```BayesianOptimization```을 통해 최적화 시킨 값들을 사용했다. (추후에 ```bayesian optimization```에 대해 업로드 예정+ 하이퍼 파라미터 중```dart```에 대해서, ```dropout```에 대해서도 업로드 예정)
+
 
 
 ## 3. 피드백
 
 피드백을 하기 전에 당시 대회 데이터에 대한 설명이 필요할 것 같다.
+
+### 3.1 데이터에 대한 간략한 설명 및 input_data생성 코드
 
 데이터는 ```train_err```,```train_quality```,```train_problem```, ```test_err```, ```test_quality```로 나뉘어져 있었다. 데이터 이름만 봐도 알 수 있듯이, problem데이터가 우리가 예측하고 싶은 고객 불만 데이터이고 그 외의 데이터가 예측변수로 에러 로그, 퀄리티 로그 데이터이다.
 
@@ -123,5 +200,16 @@ for person_idx, quality in tqdm(id_quality_7):
 input_data.shape
 ```
 
-이런 식으로 인덱싱을 이용하여 ```user_id```별로 각 변수에 +1하는 방식으로 ```input_data```를 만들었다.
+또한 ```train```데이터와 ```test```데이터 간의 차이점도 존재했다. 사용했던 변수 중 fwver과 quality변수는 ```train```과 ```test```간 중복되지 않은 unique한 값들이 존재했다. 
 
+***
+
+### 3.2 전처리 복기
+
+이런 식으로 인덱싱을 이용하여 ```user_id```별로 각 변수에 +1하는 방식으로 ```input_data```를 만들었다. 그러다보니 ```input_data```의 사이즈가 15,000*431정도 밖에 되지 않았다. (나중에 feature selection을 이용하여 의미있는 변수만 선택해서 적용시켰다.) 학습 데이터는 각각 1600만 행 정도가 되었는데 방대한 데이터를 1만5천행의 데이터로 줄이다보니 시계열적 정보가 사라졌다.
+
+만약 **시계열 데이터를 이용했다면 좀 더 데이터가 많아졌을 것이고, 로그 데이터에서 의미가 있는 시간에 대해서도 반영할 수 있었을 것**이라는 아쉬움이 남는다. 2차원 array가 아닌 3차원 array로 구성을 했다면 시간 변수를 온전히 반영할 수 있었을테고, 더 높은 정확도를 가졌겠지만, 경험 부족으로 3차원 인풋 데이터를 2차원 아웃풋 데이터로 만들어 내는 코드를 구현하지 못했다.
+
+그리고, 중복되지 않은 unique한 값들은 전부 하나의 값으로 통일 시킨 다음에 **중복되는 값들 여러개 + 중복되지 않는 값 하나**로 구성하여 ```categorize```시켰다. 
+
+여기서 아쉬웠던 점이 있었는데, 중복되지 않는 값들도 군집화를 통해 하나의 값이 아닌 다양한 값들로 반영을 했더라면 어땠을까 하는 생각이 있다. 시간 부족 때문에 다양한 방법을 시도해보지 못했는데, 만약  ```train```데이터와 ```test```데이터 간의 명목형 변수의 값에 차이가 있다면 중복되지 않는 값들을 하나의 유형으로 퉁쳐버리는 것이 아닌, 적절한 유형으로 군집화해봐야겠다.
