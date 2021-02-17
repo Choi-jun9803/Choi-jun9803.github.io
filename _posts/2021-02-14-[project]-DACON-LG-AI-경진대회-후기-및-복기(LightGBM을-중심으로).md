@@ -175,7 +175,7 @@ for train_idx, val_idx in k_fold.split(train_x):
 
 앞서 말했듯이 모든 데이터는 양적 비교가 불가능한 코드화된 데이터이고 categorize과정이 필요한 데이터였다. 그래서 두 예측 변수 데이터를 하나의 ```input_data```로 변환하는 작업이 필요했고, ```string```데이터 타입이 없는 변수들만 골라서 ```categorize```시켜서 ```input_data```를 만들었다.
 
-```pyhon
+```python
 input_data = np.zeros((train_user_number,431))
 
 id_error = train_err[['user_id','errtype']].values
