@@ -12,8 +12,7 @@ categories: ML
 ### 1.1 Bagging이란?
 
 [이 전 포스팅](https://choi-jun9803.github.io/project/2021/02/14/project-DACON-LG-AI-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%ED%9B%84%EA%B8%B0-%EB%B0%8F-%EB%B3%B5%EA%B8%B0(LightGBM%EC%9D%84-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C).html)에서 ```Boosting```, 그 중에서도 ```LightGBM```을 다뤘었다. 설명 도중에 Bagging과 Boosting의 차이점에서 대충 설명하긴 했지만 Bagging이 정확히 무엇인지에 대해서와, 모델링에서 사용했던 ```RandomForest```에 대해서는 언급을 거의하지 않았기 때문에 이번 포스팅에서는 ```Bagging```과 ```RandomForest```에 대해서 설명을 할 것이다.   
-
-
+&nbsp;
 
 먼저, ```Bagging```은 **Bootstrap aggregating**의 약자로 반복적으로 샘플을 랜덤으로 복원 추출하여 N개를 만든 후, N개의 모델을 학습시키고 각각의 예측값들을 평균(회귀 문제의 경우)을 내거나 투표(분류 문제의 경우)를 통해 예측하는 모델이다.
 
@@ -44,7 +43,6 @@ categories: ML
 ###### (L같은건 bootstrap했을 때의 샘플 하나라고 보면 된다.)
 
 ```Bagging```이 아닌 ```bootstrap```한 것들을 학습한 모델들의 값에 대한 ```error term```의 평균을 표현하면 식 4.1이 나온다. 그런데 이 식에서 ```Jensen's inequality```를 이용해서 마지막 요소의 ```Expectation```의 위치를 바꾼다면?? 이때 식에서의 f(x)가 ```convex```인 x^2이니 식 4.2가 성립한다. (왼쪽 필기 참조)   
-
-
+&nbsp;
 
 이런 연유로 ```bootstrap```한 샘플들의 분류기를 앙상블(평균처리)해서 모델을 작업하는
