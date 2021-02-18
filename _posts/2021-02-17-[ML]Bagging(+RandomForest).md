@@ -19,7 +19,7 @@ categories: ML
 
 ![Bagging_algorithm](https://user-images.githubusercontent.com/64791442/108373527-563ac700-7243-11eb-8677-637e44eb86de.jpg)
 
-위 사진은 평균으로 처리한 것으로 봐서 분류가 아닌 regressor의 경우이다. 생각보다 간단하죠?
+위 사진은 앙상블을 평균으로 처리한 것으로 봐서 분류가 아닌 regressor의 경우이다. 생각보다 간단하죠?
 
 ***
 
@@ -44,6 +44,10 @@ categories: ML
 ###### (L같은건 bootstrap했을 때의 샘플 하나라고 보면 된다.)
 
 ```Bagging```이 아닌 ```bootstrap```한 것들을 학습한 모델들의 값에 대한 ```error term```의 평균을 표현하면 식 4.1이 나온다. 그런데 이 식에서 ```Jensen's inequality```를 이용해서 마지막 요소의 ```Expectation```의 위치를 바꾼다면?? 이때 식에서의 f(x)가 ```convex```인 x^2이니 식 4.2가 성립한다. (왼쪽 필기 참조)   
+
+
+
+
 
 
 
