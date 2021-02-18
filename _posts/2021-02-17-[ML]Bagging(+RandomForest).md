@@ -37,3 +37,4 @@ categories: ML
 
 ~~타이포라로 수식쓰는건 너무 귀찮으니 논문에 필기한걸 캡쳐하겠다 ㅎㅎ~~
 
+![Bagging](https://user-images.githubusercontent.com/64791442/108373168-eaf0f500-7242-11eb-8a59-024b69f03906.jpg)
