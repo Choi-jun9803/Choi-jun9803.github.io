@@ -18,7 +18,7 @@ categories: ML
 
 먼저, ```Bagging```은 **Bootstrap aggregating**의 약자로 반복적으로 샘플을 랜덤으로 복원 추출하여 N개를 만든 후, N개의 모델을 학습시키고 각각의 예측값들을 평균(회귀 문제의 경우)을 내거나 투표(분류 문제의 경우)를 통해 예측하는 모델이다.
 
-![Bagging_algorithm](https://user-images.githubusercontent.com/64791442/108373527-563ac700-7243-11eb-8677-637e44eb86de.jpg){:width='300'height='300'}
+![Bagging_algorithm](https://user-images.githubusercontent.com/64791442/108373527-563ac700-7243-11eb-8677-637e44eb86de.jpg){:width='800'height='800'}
 
 위 사진은 앙상블을 평균으로 처리한 것으로 봐서 분류가 아닌 regressor의 경우이다. 생각보다 간단하죠?
 
@@ -71,7 +71,7 @@ categories: ML
 
 &nbsp;
 
-![RandomForest](https://user-images.githubusercontent.com/64791442/108672778-fdf71400-7525-11eb-8424-fbcc1c894830.jpg){:width='200'height='200'}
+![RandomForest](https://user-images.githubusercontent.com/64791442/108672778-fdf71400-7525-11eb-8424-fbcc1c894830.jpg){:width='600'height='600'}
 
 ##### 이 사진을 보면 ```Bagging```보다 ```RandomForest```의 성능이 더 좋다는 것을 알 수 있다.
 
