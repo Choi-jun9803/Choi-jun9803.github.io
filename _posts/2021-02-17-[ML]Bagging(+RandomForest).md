@@ -18,7 +18,7 @@ categories: ML
 
 먼저, ```Bagging```은 **Bootstrap aggregating**의 약자로 반복적으로 샘플을 랜덤으로 복원 추출하여 N개를 만든 후, N개의 모델을 학습시키고 각각의 예측값들을 평균(회귀 문제의 경우)을 내거나 투표(분류 문제의 경우)를 통해 예측하는 모델이다.
 
-![Bagging_algorithm](https://user-images.githubusercontent.com/64791442/108373527-563ac700-7243-11eb-8677-637e44eb86de.jpg)
+![Bagging_algorithm](https://user-images.githubusercontent.com/64791442/108373527-563ac700-7243-11eb-8677-637e44eb86de.jpg){:width='300'height='300'}
 
 위 사진은 앙상블을 평균으로 처리한 것으로 봐서 분류가 아닌 regressor의 경우이다. 생각보다 간단하죠?
 
@@ -71,7 +71,7 @@ categories: ML
 
 &nbsp;
 
-![RandomForest](https://user-images.githubusercontent.com/64791442/108672778-fdf71400-7525-11eb-8424-fbcc1c894830.jpg)
+![RandomForest](https://user-images.githubusercontent.com/64791442/108672778-fdf71400-7525-11eb-8424-fbcc1c894830.jpg){:width='200'height='200'}
 
 ##### 이 사진을 보면 ```Bagging```보다 ```RandomForest```의 성능이 더 좋다는 것을 알 수 있다.
 
@@ -85,9 +85,7 @@ categories: ML
 
 얼핏 이상하게 들릴지 모르지만, 여기에는 다 이유가 있다. 만약 한가지 예측변수가 매우 강력한 예측변수이고, 나머지는 적절하게 강력한 예측변수라고 해보자. 그렇다면 ```Bagging```을 통해 만들어진 ```tree```들은, (비록 ```bootstrap```으로 약간씩 다름에도 불구하고) 거의 모든 tree들이 가장 강력한 그 하나의 변수를 top split으로 삼고 있을 것이다. 즉, **매우 비슷해 보이는 bagged tree들**이 만들어 질것이다. 이미 언급하였듯이, highly correlated 된 통계량들을 평균내는 것은 그렇지 않은 경우에서 평균내는것 만큼의 큰 variance의 감소를 내지 못한다.
 
-&nbsp;
 
-이렇게 조금 다른 방법들로 인해서 하이퍼파라미터의 종류도 조금 다르다.
 
 
 
@@ -98,6 +96,8 @@ categories: ML
 - **max_depth** : 트리의 깊이
 - **min_sample_leaf** : 리프노드가 되기 위한 최소한의 샘플 데이터 수
 - **min_samples_split** : 노드를 분할하기 위한 최소한의 데이터 수
+
+등...
 
 [참조](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
 
