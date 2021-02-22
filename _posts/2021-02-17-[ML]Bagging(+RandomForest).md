@@ -9,6 +9,8 @@ categories: ML
 
 ## 1. Bagging
 
+***
+
 ### 1.1 Bagging이란?
 
 [이 전 포스팅](https://choi-jun9803.github.io/project/2021/02/14/project-DACON-LG-AI-%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C-%ED%9B%84%EA%B8%B0-%EB%B0%8F-%EB%B3%B5%EA%B8%B0(LightGBM%EC%9D%84-%EC%A4%91%EC%8B%AC%EC%9C%BC%EB%A1%9C).html)에서 ```Boosting```, 그 중에서도 ```LightGBM```을 다뤘었다. 설명 도중에 Bagging과 Boosting의 차이점에서 대충 설명하긴 했지만 Bagging이 정확히 무엇인지에 대해서와, 모델링에서 사용했던 ```RandomForest```에 대해서는 언급을 거의하지 않았기 때문에 이번 포스팅에서는 ```Bagging```과 ```RandomForest```에 대해서 설명을 할 것이다.   
@@ -55,6 +57,8 @@ categories: ML
 
 ## 2. RandomForest
 
+***
+
 ### 2.1 RandomForest란?
 
 ```RandomForest```, 진짜 데이터 사이언스 쪽에 관심 있는 사람이라면 이 이름을 한 번 정도는 들어봤을 것이다. 그런데 이것이 정확히 무엇인지 잘 모르면서 사용하는 사람이 가끔 있는 것 같다. 학회 운영진을 하면서 면접을 봤는데 한 분이 자신의 프로젝트를 설명하면서 이 기법을 사용했더니 성능이 얼만큼 늘었다~ 이런 식으로 말한 적이 있었다. 그래서 ```RandomForest```가 어떤 것인지 간단하게 설명해달라고 요청했더니 잘 모른다고 답했다... 기법을 사용해보기만 한 것은 의미가 없다. 그건 그 날 처음 사용해 본 사람도 알 수 있는 일이다. Ctrl+C Ctrl+V만 하면 되니까 ㅎㅎ&nbsp;
@@ -67,7 +71,11 @@ categories: ML
 
 즉, 랜덤한 변수들만 골라서 ```tree```모델을 여러 개 만들어서 앙상블하는 방법인 것이다.
 
+얼핏 이상하게 들릴지 모르지만, 여기에는 다 이유가 있다. 만약 한가지 예측변수가 매우 강력한 예측변수이고, 나머지는 적절하게 강력한 예측변수라고 해보자. 그렇다면 ```Bagging```을 통해 만들어진 ```tree```들은, (비록 ```bootstrap```으로 약간씩 다름에도 불구하고) 거의 모든 tree들이 가장 강력한 그 하나의 변수를 top split으로 삼고 있을 것이다. 즉, **매우 비슷해 보이는 bagged tree들**이 만들어 질것이다. 이미 언급하였듯이, highly correlated 된 통계량들을 평균내는 것은 그렇지 않은 경우에서 평균내는것 만큼의 큰 variance의 감소를 내지 못한다.
+
 이렇게 조금 다른 방법들로 인해서 하이퍼파라미터의 종류도 조금 다르다.
+
+
 
 ### 2.2 RandomForest의 Hyperparameter
 
@@ -78,4 +86,6 @@ categories: ML
 - **min_samples_split** : 노드를 분할하기 위한 최소한의 데이터 수
 
 [참조](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
+
+&nbsp;
 
