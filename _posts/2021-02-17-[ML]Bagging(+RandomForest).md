@@ -47,3 +47,35 @@ categories: ML
 
 &nbsp;
 
+![Bagging의 수학적 이유](https://user-images.githubusercontent.com/64791442/108666023-8de29100-7519-11eb-8881-ddddd226e899.jpg)
+
+논문에서 수학적으로 설명되어 있는 부분을 내 방식으로 풀어봤다. 정리하면 data가 ```unstable```해야지 ```Bagging```이 아닌 것과 ```Bagging```의 차이가 커지므로 이 알고리즘의 의미가 있는 것이다.
+
+&nbsp;
+
+## 2. RandomForest
+
+### 2.1 RandomForest란?
+
+```RandomForest```, 진짜 데이터 사이언스 쪽에 관심 있는 사람이라면 이 이름을 한 번 정도는 들어봤을 것이다. 그런데 이것이 정확히 무엇인지 잘 모르면서 사용하는 사람이 가끔 있는 것 같다. 학회 운영진을 하면서 면접을 봤는데 한 분이 자신의 프로젝트를 설명하면서 이 기법을 사용했더니 성능이 얼만큼 늘었다~ 이런 식으로 말한 적이 있었다. 그래서 ```RandomForest```가 어떤 것인지 간단하게 설명해달라고 요청했더니 잘 모른다고 답했다... 기법을 사용해보기만 한 것은 의미가 없다. 그건 그 날 처음 사용해 본 사람도 알 수 있는 일이다. Ctrl+C Ctrl+V만 하면 되니까 ㅎㅎ&nbsp;
+
+그렇다면 ```RandomForest```는 어떤 것이고, 어떤 특징을 가지고 있을까?
+
+
+
+일단 ```RandomForest```은 이름에서 알 수 있듯이(?) ```tree```기반 모델인데 ```Bagging```과 아주 큰 차이점이 있다. ```Bagging```은 데이터를 랜덤하게 복원추출함으로써 사용한다. ```feature```는 전부 사용한다. 그러나 ```RandomForest```는 데이터는 전부 사용하나 ```feature```의 개수를 랜덤하게 추출해서 사용한다. (주로 추출 변수 개수는 전체 변수 개수의 제곱근을 많이 사용한다.) &nbsp;
+
+즉, 랜덤한 변수들만 골라서 ```tree```모델을 여러 개 만들어서 앙상블하는 방법인 것이다.
+
+이렇게 조금 다른 방법들로 인해서 하이퍼파라미터의 종류도 조금 다르다.
+
+### 2.2 RandomForest의 Hyperparameter
+
+- **n_estimators** : 트리의 개수, default는 100, 많을수록 좋은 성능이 나오는 것은 아니다.
+- **max_features** : 데이터의 feature를 참조할 개수, default는 auto
+- **max_depth** : 트리의 깊이
+- **min_sample_leaf** : 리프노드가 되기 위한 최소한의 샘플 데이터 수
+- **min_samples_split** : 노드를 분할하기 위한 최소한의 데이터 수
+
+[참조](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
+
